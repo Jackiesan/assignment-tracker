@@ -12,6 +12,9 @@ app.use(require('body-parser').json())
 // Attach token to request
 app.use(require('./api/middleware/set-token'))
 
+// Routes
+app.use('/api', require('./api/routes/auth'))
+
 // Not Found Handler
 app.use((req, res, next) => {
   const error = new Error(`Could not ${req.method} ${req.path}`)
