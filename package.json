@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "debug": "nodemon --inspect app.js",
+    "dev": "nodemon app.js",
+    "lint": "standard --verbose --fix | snazzy",
+    "reset-db": "node ./db/seeds"
   },
   "repository": {
     "type": "git",
