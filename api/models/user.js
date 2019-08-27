@@ -1,5 +1,11 @@
 const mongoose = require('mongoose')
 
+// helper function to validate email
+const validateEmail = function(email) {
+  const validEmail = /^\S+@\S+\.\S+$/
+  return validEmail.test(email)
+}
+
 const schema = mongoose.Schema({
   first_name: {
     type: String,
@@ -11,7 +17,8 @@ const schema = mongoose.Schema({
   },
   email_address: {
     type: String,
-    required: true
+    required: true,
+    validate: [validateEmail, 'Email address is not valid']
   },
   password: {
     type: String,
