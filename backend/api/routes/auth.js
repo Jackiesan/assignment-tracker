@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt')
 const User = require('../models/user')
 const { generateToken } = require('../lib/token')
 
+// /signup
 router.post('/signup', async (req, res, next) => {
   try {
     const { email_address, password, first_name, last_name } = req.body
@@ -55,5 +56,7 @@ router.post('/signup', async (req, res, next) => {
     next(error)
   }
 })
+
+// /login
 
 module.exports = router

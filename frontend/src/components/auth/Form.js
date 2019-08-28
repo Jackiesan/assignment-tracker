@@ -27,14 +27,14 @@ class Form extends React.Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <div className='form-group'>
-          <label htmlFor='username'>Username</label>
+          <label htmlFor='email'>Email</label>
           <input
             className='form-control'
-            id='username'
+            id='email'
             onChange={this.handleChange}
-            name='username'
+            name='email'
             type='text'
-            value={this.state.username} />
+            value={this.state.email} />
         </div>
         <div className='form-group'>
           <label htmlFor='password'>Password</label>

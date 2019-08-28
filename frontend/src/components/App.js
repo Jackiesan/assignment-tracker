@@ -62,7 +62,7 @@ class App extends React.Component {
           />
         <Switch>
           <Route path='/signup' exact component={() => {
-            return this.state.currentUserId ? <Redirect to='/users' /> : <Signup onSubmit={this.signupUser} />
+            return this.state.currentUserId ? <Redirect to='/login' /> : <Signup onSubmit={this.signupUser} />
           }} />
 
           <Redirect to='/login' />

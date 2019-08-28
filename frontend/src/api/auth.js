@@ -32,17 +32,3 @@ export const signup = async (user) => {
   window.localStorage.setItem('journal-app', token)
   return json
 }
-
-export const profile = async () => {
-  const token = window.localStorage.getItem('journal-app')
-  const response = await fetch(`${BASE_URL}/api/profile`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    },
-    method: 'GET'
-  })
-  const json = await response.json()
-
-  return json
-}
