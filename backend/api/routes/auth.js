@@ -59,4 +59,24 @@ router.post('/signup', async (req, res, next) => {
 
 // /login
 
+router.post('/login', async (req, res, next) => {
+  const { email_address, password } = req.body
+  const user = await User.findOne({ email_address })
+  if (user) {
+    const valid = await bcrypt.compare(password, user.password)
+    if (valid) {
+      const status = 200
+      const response = "You have successfully logged in"
+      const token = generateToken(user._id)
+      return res.status(status).json({ status, response, token })
+    }
+  }
+
+  // credentials not valid
+  const message = 'Invalid login credentials. Please check email and password and try again!'
+  const error = Error(message)
+  error.status = 401
+  next(error)
+})
+
 module.exports = router
