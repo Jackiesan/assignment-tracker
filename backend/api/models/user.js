@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const Assignment = require('./assignment')
 
 // helper function to validate email
 const validateEmail = function(email) {
@@ -29,7 +30,8 @@ const schema = mongoose.Schema({
     type: Boolean,
     default: false,
     required: true
-  }
+  },
+  assignments : [Assignment]
 }, { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
 
 module.exports = mongoose.model('User', schema)
