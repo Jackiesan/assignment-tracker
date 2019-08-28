@@ -2,9 +2,9 @@ import React from 'react'
 
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
 import Header from './shared/Header'
-// import Navigation from './shared/Navigation/Navigation'
-// import Login from './auth/Login.Form'
-// import Signup from './auth/Signup.Form'
+import Navigation from './shared/Navigation/Navigation'
+import Login from './auth/Login.Form'
+import Signup from './auth/Signup.Form'
 import * as token from '../helpers/local-storage'
 import * as auth from '../api/auth'
 
@@ -56,6 +56,17 @@ class App extends React.Component {
     return (
       <Router>
         <Header />
+        <Navigation
+          currentUserId={this.state.currentUserId}
+          logoutUser={this.logoutUser}
+          />
+        <Switch>
+          <Route path='/signup' exact component={() => {
+            return this.state.currentUserId ? <Redirect to='/users' /> : <Signup onSubmit={this.signupUser} />
+          }} />
+
+          <Redirect to='/login' />
+        </Switch>
       </Router>
     )
   }
