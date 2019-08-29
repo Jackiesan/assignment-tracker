@@ -22,6 +22,7 @@ app.use(require('./api/middleware/set-token'))
 // Routes
 app.use('/api', require('./api/routes/auth'))
 app.use('/api/users', require('./api/routes/users'))
+app.use('/api/admin/assignments', require('./api/routes/admin'))
 app.use('/api/users/:userId/assignments', require('./api/routes/assignments'))
 
 // Not Found Handler

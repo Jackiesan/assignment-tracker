@@ -1,4 +1,5 @@
 const { decodeToken } = require('../lib/token')
+const User = require('../models/user')
 
 const isLoggedIn = (req, _res, next) => {
   if (!req.token) {
@@ -28,4 +29,15 @@ const isSameUser = (req, _res, next) => {
   next(error)
 }
 
-module.exports = { isLoggedIn, isSameUser }
+const isAdmin = async (req, _res, next) => {
+  const payload = decodeToken(req.token)
+  console.log(payload)
+  const user = await User.findOne({ _id: payload.id })
+  const isAdmin = user.isAdmin
+  if (isAdmin) return next()
+
+  const error = new Error(`You are not an admin.`)
+  error.status = 401
+  next(error)
+}
+module.exports = { isLoggedIn, isSameUser, isAdmin }

@@ -12,7 +12,8 @@ const schema = new mongoose.Schema({
   description: {
     type: String,
     required: true
-  }
+  },
+  grade: Number
 }, { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
 
 module.exports = schema
