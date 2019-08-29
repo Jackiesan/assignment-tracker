@@ -20,8 +20,9 @@ app.use(cors({
 app.use(require('./api/middleware/set-token'))
 
 // Routes
-app.use('/', require('./api/routes/auth'))
-app.use('/assignments', require('./api/routes/assignments'))
+app.use('/api', require('./api/routes/auth'))
+app.use('/api/users', require('./api/routes/users'))
+app.use('/api/users/:userId/assignments', require('./api/routes/assignments'))
 
 // Not Found Handler
 app.use((req, res, next) => {

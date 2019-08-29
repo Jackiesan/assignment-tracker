@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt')
 const User = require('../models/user')
 const { generateToken } = require('../lib/token')
 
-// /signup
+// POST api/signup
 router.post('/signup', async (req, res, next) => {
   try {
     const { email_address, password, first_name, last_name } = req.body
@@ -57,8 +57,7 @@ router.post('/signup', async (req, res, next) => {
   }
 })
 
-// /login
-
+//POST api/login
 router.post('/login', async (req, res, next) => {
   const { email_address, password } = req.body
   const user = await User.findOne({ email_address })
