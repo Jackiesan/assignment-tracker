@@ -7,7 +7,7 @@ const excludeKeys = '-__v -password'
 // list of assignments
 // user must be logged in
 
-// GET api/users/:userId/assignments/
+// GET api/users/:userId/assignments
 router.get('/', isLoggedIn, isSameUser, async (req, res, next) => {
   const status = 200
 
@@ -19,7 +19,7 @@ router.get('/', isLoggedIn, isSameUser, async (req, res, next) => {
   res.status(status).json({ status, response: assignments })
 })
 
-// POST api/users/:userId/assignments/
+// POST api/users/:userId/assignments
 router.post('/', isLoggedIn, isSameUser, async (req, res, next) => {
   const status = 201
 
@@ -37,6 +37,31 @@ router.post('/', isLoggedIn, isSameUser, async (req, res, next) => {
   } catch (e) {
     console.error(e.errors)
     const error = new Error(`Unable to create assignment`)
+    error.status = 400
+    next(error)
+  }
+})
+
+// PUT api/users/:userId/assignments
+router.put('/:assignmentId', isLoggedIn, isSameUser, async (req, res, next) => {
+  const status = 200
+
+  try {
+    const { assignmentId, userId } = req.params
+    const query = { _id: userId }
+    const user = await User.findOne(query)
+    const assignment = user.assignments.id(assignmentId)
+
+    const { title, link, description } = req.body
+    assignment.title = title
+    assignment.link = link
+    assignment.description = description
+    await user.save()
+
+    res.status(status).json({ status, response: assignment })
+  } catch (e) {
+    console.error(e.errors)
+    const error = new Error(`Unable to edit assignment`)
     error.status = 400
     next(error)
   }
