@@ -52,6 +52,11 @@ PUT /api/users/:userId/assignments/assignmentId
 ```
 Edit an existing assignment.
 
+```
+DELETE api/users/:userId/assignments/:assignmentId
+```
+Delete an assignment assignment.
+
 ### Admin
 
 ```

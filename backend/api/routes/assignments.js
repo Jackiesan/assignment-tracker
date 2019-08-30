@@ -62,4 +62,18 @@ router.put('/:assignmentId', isLoggedIn, isSameUser, async (req, res, next) => {
   }
 })
 
+// DELETE api/users/:userId/assignments/:assignmentId
+
+router.delete('/:assignmentId', isLoggedIn, isSameUser, async (req, res, next) => {
+  const status = 200
+
+  const query = { _id: req.params.userId }
+  const user = await User.findOne(query)
+  const assignment = user.assignments.id(req.params.assignmentId)
+  assignment.remove()
+  await user.save()
+
+  res.json({ status, response: assignment })
+})
+
 module.exports = router;

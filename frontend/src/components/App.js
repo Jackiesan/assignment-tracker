@@ -5,6 +5,7 @@ import Header from './shared/Header'
 import Navigation from './shared/Navigation/Navigation'
 import Login from './auth/Login.Form'
 import Signup from './auth/Signup.Form'
+import AssignmentsContainer from './assignments/Container'
 import * as token from '../helpers/local-storage'
 import * as auth from '../api/auth'
 
@@ -46,7 +47,7 @@ class App extends React.Component {
   }
 
   logoutUser () {
-    window.localStorage.removeItem('journal-app')
+    window.localStorage.removeItem('tracker-app')
     this.setState({ currentUserId: null })
   }
 
@@ -61,8 +62,15 @@ class App extends React.Component {
           logoutUser={this.logoutUser}
           />
         <Switch>
+          <Route path='/login' exact component={() => {
+            return this.state.currentUserId ?  <Redirect to='/assignments' /> : <Login onSubmit={this.loginUser} />
+          }} />
           <Route path='/signup' exact component={() => {
-            return this.state.currentUserId ? <Redirect to='/login' /> : <Signup onSubmit={this.signupUser} />
+            return this.state.currentUserId ? <Redirect to='/assignments' /> : <Signup onSubmit={this.signupUser} />
+          }} />
+
+          <Route path='/assignments' render={() => {
+            return this.state.currentUserId ? <AssignmentsContainer /> : <Redirect to='/login' />
           }} />
 
           <Redirect to='/login' />

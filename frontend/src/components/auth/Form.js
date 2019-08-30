@@ -5,7 +5,7 @@ class Form extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      username: '',
+      email_address_address: '',
       password: ''
     }
 
@@ -27,14 +27,14 @@ class Form extends React.Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <div className='form-group'>
-          <label htmlFor='email'>Email</label>
+          <label htmlFor='email_address'>Email</label>
           <input
             className='form-control'
-            id='email'
+            id='email_address'
             onChange={this.handleChange}
-            name='email'
+            name='email_address'
             type='text'
-            value={this.state.email} />
+            value={this.state.email_address} />
         </div>
         <div className='form-group'>
           <label htmlFor='password'>Password</label>
