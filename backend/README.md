@@ -1,7 +1,19 @@
 # Assignment Tracker API
 
+## Installation
+
+1. Fork & clone this repository
+
+1. `npm install`
+
+1. `npm start dev`
+
 ## Functionality
 This API comes with the following endpoints. These endpoints are based off of the primary requirements of the final project.
+
+## Database seeds
+To seed data which includes 1 admin and 10 students run:
+`npm start reset-db`
 
 ### Authentication
 
