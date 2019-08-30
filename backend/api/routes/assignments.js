@@ -2,11 +2,6 @@ const router = require('express').Router({ mergeParams: true })
 const User = require('../models/user')
 const { isLoggedIn, isSameUser } = require('../middleware/auth')
 
-const excludeKeys = '-__v -password'
-
-// list of assignments
-// user must be logged in
-
 // GET api/users/:userId/assignments
 router.get('/', isLoggedIn, isSameUser, async (req, res, next) => {
   const status = 200
@@ -42,7 +37,7 @@ router.post('/', isLoggedIn, isSameUser, async (req, res, next) => {
   }
 })
 
-// PUT api/users/:userId/assignments
+// PUT api/users/:userId/assignments/:assignmentId
 router.put('/:assignmentId', isLoggedIn, isSameUser, async (req, res, next) => {
   const status = 200
 
