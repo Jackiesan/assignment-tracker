@@ -33,7 +33,8 @@ const isAdmin = async (req, _res, next) => {
   const payload = decodeToken(req.token)
   console.log(payload)
   const user = await User.findOne({ _id: payload.id })
-  const isAdmin = user.isAdmin
+  const isAdmin = user.admin
+  console.log(isAdmin)
   if (isAdmin) return next()
 
   const error = new Error(`You are not an admin.`)

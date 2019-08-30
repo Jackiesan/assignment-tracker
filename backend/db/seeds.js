@@ -154,7 +154,9 @@ const reset = async () => {
         {
           title: 'Capstone Project',
           link: 'www.github.com/capstone-project',
-          description: 'My capstone project'
+          description: 'My capstone project',
+          score: 40,
+          max_score: 50
         }
       ]
     }

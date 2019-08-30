@@ -13,7 +13,8 @@ const schema = new mongoose.Schema({
     type: String,
     required: true
   },
-  grade: Number
+  score: Number,
+  max_score: Number
 }, { timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } })
 
 module.exports = schema
