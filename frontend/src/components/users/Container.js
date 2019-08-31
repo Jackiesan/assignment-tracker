@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
 import List from './List/List'
-import PostsContainer from '../assignments/Container'
+import AssignmentsContainer from '../assignments/Container'
 import * as users from '../../api/users'
 
 export default class Container extends React.Component {
@@ -33,7 +33,7 @@ export default class Container extends React.Component {
     return (
       <main className='container'>
         <Route path='/users' exact component={() => <List users={users} />} />
-        <PostsContainer
+        <AssignmentsContainer
           currentUserId={currentUserId}
           refreshUsers={this.refreshUsers}
           users={users} />

@@ -65,10 +65,10 @@ class App extends React.Component {
           />
         <Switch>
           <Route path='/login' exact component={() => {
-            return this.state.currentUserId ?  <Redirect to='/assignments' /> : <Login onSubmit={this.loginUser} />
+            return this.state.currentUserId ?  <Redirect to='/users' /> : <Login onSubmit={this.loginUser} />
           }} />
           <Route path='/signup' exact component={() => {
-            return this.state.currentUserId ? <Redirect to='/assignments' /> : <Signup onSubmit={this.signupUser} />
+            return this.state.currentUserId ? <Redirect to='/users' /> : <Signup onSubmit={this.signupUser} />
           }} />
 
           <Route path='/users' render={() => {

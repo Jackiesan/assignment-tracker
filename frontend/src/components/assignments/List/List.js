@@ -11,7 +11,7 @@ export default ({ destroyAssignment, user }) => {
           <footer className='blockquote-footer'>Was feeling: { assignment.title }</footer>
         </blockquote>
       </div>
-      <Actions destroyPost={destroyAssignment} post={assignment} user={user} />
+      <Actions destroyAssignment={destroyAssignment} assignment={assignment} user={user} />
     </div>
   ))
 
