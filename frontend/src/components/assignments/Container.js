@@ -4,6 +4,7 @@ import { Route } from 'react-router-dom'
 
 // Helpers
 import * as assignments from '../../api/assignments'
+import * as students from '../../api/students'
 
 // Components
 import List from './List/List'
@@ -16,54 +17,74 @@ class Container extends React.Component {
     this.createAssignment = this.createAssignment.bind(this)
     this.destroyAssignment = this.destroyAssignment.bind(this)
     this.editAssignment = this.editAssignment.bind(this)
+    this.state = {
+      students: [],
+      loading: true
+    }
+    this.refreshStudents = this.refreshStudents.bind(this)
+  }
+
+  // Internal
+  async refreshStudents () {
+    const { response } = await students.fetchStudents()
+    this.setState({ students: response })
+  }
+
+  async componentDidMount() {
+    this.refreshStudents().then(() => this.setState({ loading: false }))
   }
 
   async createAssignment (assignment) {
-    const { currentUserId, history, refreshUsers } = this.props
+    const { currentUserId, history, refreshStudents } = this.props
 
     await assignments.createAssignment({ user: { _id: currentUserId }, assignment })
-    await refreshUsers()
+    await refreshStudents()
 
-    history.push(`/users/${currentUserId}/assignments`)
+    history.push(`/students/${currentUserId}/assignments`)
   }
 
   async destroyAssignment (assignment) {
-    const { currentUserId, history, refreshUsers } = this.props
+    const { currentUserId, history, refreshStudents } = this.props
 
     await assignments.destroyAssignment({ user: { _id: currentUserId }, assignment })
-    await refreshUsers()
+    await refreshStudents()
 
-    history.push(`/users/${currentUserId}/assignments`)
+    history.push(`/students/${currentUserId}/assignments`)
   }
 
   async editAssignment (assignment) {
-    const { currentUserId, history, refreshUsers } = this.props
+    const { currentUserId, history, refreshStudents } = this.props
 
     await assignments.updateAssignment({ user: { _id: currentUserId }, assignment })
-    await refreshUsers()
+    await refreshStudents()
 
-    history.push(`/users/${currentUserId}/assignments`)
+    history.push(`/students/${currentUserId}/assignments`)
   }
 
   render () {
-    const { currentUserId, users } = this.props
+    const { currentUserId } = this.props
+    const { students, loading } = this.state
     return (
       <>
-        <Route path='/users/:userId/assignments' exact component={({ match }) => {
-          const user = users.find(user => user._id === match.params.userId)
+        <Route path='/assignments' exact component={() => {
+          const student = students.find(student => student._id === currentUserId)
+
+          if (loading) return <span/>
+
           return (
             <List
               currentUserId={currentUserId}
               destroyAssignment={this.destroyAssignment}
-              user={user} />
+              student={student} />
           )
         }} />
-        <Route path='/users/:userId/assignments/new' exact component={() => {
+        <Route path='/students/:studentId/assignments/new' exact component={() => {
           return <NewForm onSubmit={this.createAssignment} />
         }} />
-        <Route path='/users/:userId/assignments/:assignmentId/edit' exact component={({ match }) => {
-          const user = users.find(user => user._id === match.params.userId)
-          const assignment = user.assignments.find(user => user._id === match.params.assignmentId)
+        <Route path='/students/:studentId/assignments/:assignmentId/edit' exact component={({ match }) => {
+          console.log('here')
+          const student = students.find(user => user._id === match.params.userId)
+          const assignment = student.assignments.find(student => student._id === match.params.assignmentId)
           return <EditForm onSubmit={this.editAssignment} assignment={assignment} />
         }} />
       </>
