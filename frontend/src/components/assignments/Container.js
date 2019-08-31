@@ -8,6 +8,7 @@ import * as assignments from '../../api/assignments'
 // Components
 import List from './List/List'
 import EditForm from './Form/Edit.Form'
+import NewForm from './Form/New.Form'
 
 class Container extends React.Component {
   constructor (props) {
@@ -17,7 +18,7 @@ class Container extends React.Component {
     this.editAssignment = this.editAssignment.bind(this)
   }
 
-  async createAssignment(assignment) {
+  async createAssignment (assignment) {
     const { currentUserId, history, refreshUsers } = this.props
 
     await assignments.createAssignment({ user: { _id: currentUserId }, assignment })
@@ -41,7 +42,7 @@ class Container extends React.Component {
     await assignments.updateAssignment({ user: { _id: currentUserId }, assignment })
     await refreshUsers()
 
-    history.push(`/users/${currentUserId}/posts`)
+    history.push(`/users/${currentUserId}/assignments`)
   }
 
   render () {
@@ -53,10 +54,12 @@ class Container extends React.Component {
           return (
             <List
               currentUserId={currentUserId}
-              editAssignment={this.editAssignment}
               destroyAssignment={this.destroyAssignment}
               user={user} />
           )
+        }} />
+        <Route path='/users/:userId/assignments/new' exact component={() => {
+          return <NewForm onSubmit={this.createAssignment} />
         }} />
         <Route path='/users/:userId/assignments/:assignmentId/edit' exact component={({ match }) => {
           const user = users.find(user => user._id === match.params.userId)

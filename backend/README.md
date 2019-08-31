@@ -25,8 +25,12 @@ Signup to create a new user account.
 ```
 POST /api/login
 ```
-
 Login to create an existing account with email address and password.
+
+```
+GET api/profile
+```
+Get users profile
 
 ### Users
 

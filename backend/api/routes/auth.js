@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const bcrypt = require('bcrypt')
 const User = require('../models/user')
-const { generateToken } = require('../lib/token')
+const { generateToken, decodeToken } = require('../lib/token')
 
 // POST api/signup
 router.post('/signup', async (req, res, next) => {
@@ -76,6 +76,23 @@ router.post('/login', async (req, res, next) => {
   const error = Error(message)
   error.status = 401
   next(error)
+})
+
+// GET api/profile
+
+router.get('/profile', async (req, res, next) => {
+  try {
+    const payload = decodeToken(req.token)
+    const user = await User.findOne({ _id: payload.id }).select('-__v -password')
+
+    const status = 200
+    res.json({ status, user })
+  } catch (e) {
+    console.error(e)
+    const error = new Error('You are not authorized to access this route.')
+    error.status = 401
+    next(error)
+  }
 })
 
 module.exports = router

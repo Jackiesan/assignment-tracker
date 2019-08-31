@@ -8,10 +8,10 @@ export default ({ destroyAssignment, user }) => {
       <div className='card-body'>
         <p className='card-text'>{ assignment.content }</p>
         <blockquote className='blockquote mb-0'>
-          <footer className='blockquote-footer'>Was feeling</footer>
+          <footer className='blockquote-footer'>Was feeling: { assignment.title }</footer>
         </blockquote>
       </div>
-      <Actions destroyPost={destroyAssignment} assignment={assignment} user={user} />
+      <Actions destroyPost={destroyAssignment} post={assignment} user={user} />
     </div>
   ))
 
